@@ -1,5 +1,8 @@
 const {Schema, model} = require("mongoose");
 const dayjs = require("dayjs")
+
+const reactionSchema = require("./Reaction")
+
 //create schema
 const thoughtSchema = new Schema({
     username: {
@@ -20,7 +23,7 @@ const thoughtSchema = new Schema({
         type: String,
         required: true,
     },
-    reactions: ["????"]
+    reactions: [reactionSchema]
 }, {
     toJSON: {
         virtuals: true

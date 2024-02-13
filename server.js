@@ -1,36 +1,18 @@
 const express = require ("express");
-const db = require("./ ") //fill in path 
-//const {server name} = require("@name/server/ ") 
-const { , }= require("./schemas")
-//const path = require ("path");
+const db = require('./config/connection');
+const routes = require('./routes');
 
+const PORT = process.env.PORT || 3001;
+const app = express();
 
+// middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
+app.use(routes);
 
-//app
-const app =express();
-app.get('/', function (req, res)){
-    res.send ('')
-})
-
-
-//middleware
-app.use(..({origin:true, credentials: true}));
-
-
-
-//port
-const port = process.env.PORT || //3001?;
-const startServer (serve name) = asyn ()=>{
-    await.server.start();
-
-    app.use(express.urlencoded({extended:true}));
-    app.use(express.json()):
-    //app.use ("/", [expressMiddleware]?(server));
-}
-
-// if (process.env. === "")
-// app.use(express.static(path.join(_dirname, "...")))
-
-
-// app.listen
+db.once('open', () => {
+    app.listen(PORT, () => {
+      console.log(`API server for ${activity} running on port ${PORT}!`);
+    });
+  });
