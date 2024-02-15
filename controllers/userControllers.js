@@ -16,7 +16,7 @@ module.exports = {
     //  Get User by ID -> findOne
     async getUserById (req,res) {
         try {
-            const user = await User.findByid.get(req.params.userId);    //.populate?
+            const user = await User.findById(req.params.userId);    //.populate?
 
             res.json(user)
         } catch (err) {
@@ -56,7 +56,7 @@ module.exports = {
    
     async deleteUser (req,res) {
         try {
-            const users = await User.findByIdAnddelete(req.params.userId);
+            const users = await User.findByIdAndDelete(req.params.userId);
             res.json(users)
         } catch (err) {
             console.log(err)

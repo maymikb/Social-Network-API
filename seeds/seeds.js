@@ -38,9 +38,15 @@ const ReactionData = //name change ??
     ];
 
 async function seedDb() {
-    await User.createCollection(userData);
+    await User.deleteMany()
+    await Thought.deleteMany()
 
-    await Thought.createCollection(ThoughtsData);
+    await User.create(userData);
+    console.log("Users has been added")
+
+    await Thought.create(ThoughtsData);
+    console.log("Thoughts has been added")
+
 }
 
 db.once('open', () => {

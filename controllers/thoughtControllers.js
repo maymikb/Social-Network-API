@@ -1,12 +1,12 @@
-const {User, Thought} = require("../models")
+const { User, Thought } = require("../models")
 
 module.exports = {
     // Get All Thoughts
-    async getUsers (req,res) {
+    async getThoughts(req, res) {
         try {
-            const users = await Thought.find();
+            const thoughts = await Thought.find();
 
-            res.json(users)
+            res.json(thoughts)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
@@ -14,11 +14,11 @@ module.exports = {
     },
 
     //  Get Thoughts by ID -> findOne
-    async getUserByID (req,res) {
+    async getThoughtById(req, res) {
         try {
-            const user = await Thought.findByid.get(req.params.thoughtID);  
+            const thought = await Thought.findById(req.params.thoughtId);
 
-            res.json(user)
+            res.json(thought)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
@@ -28,24 +28,16 @@ module.exports = {
 
 
     // Update Thoughts by ID -> findOneAndUpdate
-    async UpdateUserByID (req,res) {
+    async updateUserById(req, res) {
         try {
-            const users = await Thought.findByIdAndUpdate((req.params.thoughtID, req.body)); 
-        res.json(user)
-        } catch (err) {
-            console.log(err)
-            res.status(500).json(err);
-        }
-    },
+            // const thought = await Thought.findByIdAndUpdate((req.params.thoughtId, req.body));
+            // res.json(thought)
 
+            const thought = await Thought.findById(req.params.thoughtId); //Thought capitalized?
+            thought.thoughtText = req.body.thoughtText; //??
+            await thought.save() //??
 
-    // Delete Thoughts by ID -> findOneAndRemove
-   
-    async deleteByID (req,res) {
-        try {
-            const users = delete userById.findByIdAndRemove(reqs.params.thoughtID); 
-
-            res.json(deleteById)
+            res.json(thought)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
@@ -54,11 +46,18 @@ module.exports = {
 
 
     // Add a Thought ->create/post           create?
-    async createThought (req,res) {
+    async createThought(req, res) {
         try {
-            const users = await Thought.create.post({thoughtText,username, user: userdId});   //user. ??
-                    //push thought?
-            res.json(createThought)
+            const thought = await Thought.create(req.body);   //user. ??
+
+            const user = await User.findOne({
+                username: req.body.username
+            }); //Thought capitalized?
+
+            user.thoughts.push(thought._id); //??
+            await user.save() //??
+            //push thought?
+            res.json(thought)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
@@ -67,44 +66,47 @@ module.exports = {
 
 
     // Delete Thought -> findOneAndRemove
-    async deleteThought (req,res) {
+    async deleteThought(req, res) {
         try {
-            const users = await Thought.findByIdAndDelete(req.params.thoughtID);
-            res.json(friend)
+            const thought = await Thought.findByIdAndDelete(req.params.thoughtId);
+            res.json(thought)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
         }
     },
 
-   
-
-
-//Add a Reaction
-async addReaction (req,res) {
-    try {
-        const users = await Thought.findById(req.params.thoughtId); //Thought capitalized?
-        Thought.reactions.push(req.body); //??
-        await Thought.save //??
-        res.json(createReaction)
-    } catch (err) {
-        console.log(err)
-        res.status(500).json(err);
-    }
-},
 
 
 
-//Remove reaction
-async removeReaction (req,res) {
-    try {
-        const users = await Thought.findById(req.params.thoughtId); //Thought capitalized?
-        
-        res.json(removeReaction)
-    } catch (err) {
-        console.log(err)
-        res.status(500).json(err);
-    }
-},
+    //Add a Reaction
+    async addReaction(req, res) {
+        try {
+            const thought = await Thought.findById(req.params.thoughtId); //Thought capitalized?
+            thought.reactions.push(req.body); //??
+            await thought.save() //??
+
+            res.json(thought)
+        } catch (err) {
+            console.log(err)
+            res.status(500).json(err);
+        }
+    },
+
+
+
+    //Remove reaction
+    async removeReaction(req, res) {
+        try {
+            const thought = await Thought.findById(req.params.thoughtId); //Thought capitalized?
+            thought.reactions.pull(req.body); //??
+            await thought.save() //??
+
+            res.json(thought)
+        } catch (err) {
+            console.log(err)
+            res.status(500).json(err);
+        }
+    },
 
 }

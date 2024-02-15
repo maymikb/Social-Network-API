@@ -5,7 +5,7 @@ const reactionSchema = require("./Reaction")
 
 //create schema
 const thoughtSchema = new Schema({
-    username: {
+    thoughtText: {
         type: String,
         required: true,
         minLength: 1,
