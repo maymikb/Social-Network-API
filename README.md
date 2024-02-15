@@ -29,3 +29,5 @@ The data for users and thoughts is displayed in formatted JSON in Insomnia when 
 <div>package.json.</div>
 <div>Insomnia</div>
 <div>Express.js</div>
+
+## Video walkthrough link

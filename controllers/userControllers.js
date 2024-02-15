@@ -1,4 +1,4 @@
-const {User, Thought} = require("../models")
+const {User, Thought} = require("../models") 
 
 module.exports = {
     // Get All Users
@@ -14,9 +14,9 @@ module.exports = {
     },
 
     //  Get User by ID -> findOne
-    async userByID (req,res) {
+    async getUserByID (req,res) {
         try {
-            const users = await userByid.find();
+            const user = await User.findByid.get();    //.populate?
 
             res.json(user)
         } catch (err) {
@@ -29,54 +29,46 @@ module.exports = {
     // Create new user -> create
     async newUser (req,res) {
         try {
-            const users = create newUser.post(),  //post?
+            const newUser = await User.create(req.body);  //post or create??
 
-            res.json(user)
+            res.json(User)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
         }
     },
-
 
 
 
     // Update user by ID -> findOneAndUpdate
-    async userByID (req,res) {
+    async updateUser (req,res) {
         try {
-            const users = await userByid.find();
-
-            res.json(user)
+            const users = await User.findByIdAndUpdate(req.params.userId, req.body);
+            res.json(User)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
         }
     },
-
-
-
 
 
     // Delete User by ID -> findOneAndRemove
    
-    async deleteByID (req,res) {
+    async deleteUser (req,res) {
         try {
-            const users = delete userByid.find();
-
-            res.json(userById)
+            const users = await User.findByIdAnddelete(req.params.userId);
+            res.json(deleteById)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
         }
     },
-
-
 
 
     // Add Friend -> findOneAndUpdate           create?
     async addFriend (req,res) {
         try {
-            const users = add newFriend.add();
+            const users = await User.findById(req.params.userId);   //user. ??
 
             res.json(addFriend)
         } catch (err) {
@@ -86,10 +78,10 @@ module.exports = {
     },
 
 
-    // Delete Friend -> findOneAndUpdate
+    // Delete Friend -> findOneAndremove
     async deleteFriend (req,res) {
         try {
-            const users = delete friend.delete();
+            const users = await User.findById(req.params.userId);
 
             res.json(friend)
         } catch (err) {
@@ -97,4 +89,5 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-
+}
+    
