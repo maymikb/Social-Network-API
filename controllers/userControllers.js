@@ -14,9 +14,9 @@ module.exports = {
     },
 
     //  Get User by ID -> findOne
-    async getUserByID (req,res) {
+    async getUserById (req,res) {
         try {
-            const user = await User.findByid.get();    //.populate?
+            const user = await User.findByid.get(req.params.userId);    //.populate?
 
             res.json(user)
         } catch (err) {
@@ -31,7 +31,7 @@ module.exports = {
         try {
             const newUser = await User.create(req.body);  //post or create??
 
-            res.json(User)
+            res.json(newUser)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
@@ -44,7 +44,7 @@ module.exports = {
     async updateUser (req,res) {
         try {
             const users = await User.findByIdAndUpdate(req.params.userId, req.body);
-            res.json(User)
+            res.json(users)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
@@ -57,7 +57,7 @@ module.exports = {
     async deleteUser (req,res) {
         try {
             const users = await User.findByIdAnddelete(req.params.userId);
-            res.json(deleteById)
+            res.json(users)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
@@ -68,9 +68,12 @@ module.exports = {
     // Add Friend -> findOneAndUpdate           create?
     async addFriend (req,res) {
         try {
-            const users = await User.findById(req.params.userId);   //user. ??
-
-            res.json(addFriend)
+            const users = await User.findByIdAndUpdate(req.params.userId, {
+                $addToSet:{
+                    friends: req.body.friendId
+                }
+            });
+            res.json(users)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);
@@ -81,9 +84,12 @@ module.exports = {
     // Delete Friend -> findOneAndremove
     async deleteFriend (req,res) {
         try {
-            const users = await User.findById(req.params.userId);
-
-            res.json(friend)
+            const users = await User.findByIdAndUpdate(req.params.userId, {
+                $pull:{
+                    friends:req.body.friendId
+                }
+            });
+            res.json(users)
         } catch (err) {
             console.log(err)
             res.status(500).json(err);

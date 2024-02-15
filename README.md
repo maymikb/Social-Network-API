@@ -20,14 +20,11 @@ As the user, my server is started and the Mongoose models sync to the MongoDB da
 The data for users and thoughts is displayed in formatted JSON in Insomnia when API GET routes are opened.thoughtJots will allow users to create, update, and delete friends' lists, do the same with thoughts, and be able to react to other users’ thoughts.
 
 
-
-
-
-
 ## Installation
 <div>package-lock.json </div>
 <div>package.json.</div>
 <div>Insomnia</div>
 <div>Express.js</div>
+
 
 ## Video walkthrough link
