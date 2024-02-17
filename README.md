@@ -28,3 +28,5 @@ The data for users and thoughts is displayed in formatted JSON in Insomnia when 
 
 
 ## Video walkthrough link
+https://drive.google.com/file/d/18-GlyvG_Xr1xQMp8yE82p-09IOn0Dc33/view
+
